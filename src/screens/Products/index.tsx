@@ -73,7 +73,6 @@ class Products extends React.Component<Props, State> {
     if (isFetching) return <ScreenLoading />
     return (
     <SafeAreaView style={styles.root}>
-      <StatusBar barStyle="dark-content" />
       <ProductsList
         list={products}
         onEndReached={this.onLoadMore}
