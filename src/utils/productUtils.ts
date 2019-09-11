@@ -13,7 +13,7 @@ export function fillAdsInList(newItems: ProductItemType[]): ProductItemType[] {
         if((i+1) % AD_ITEM_PLACE === 0 && !isAdItem(curr)) {
           const id = new Date().getTime().toString();
           const adId = (Math.floor(Math.random()*1000)).toString();
-          return [...acc, curr, { id, adId }];
+          return [...acc,{ id, adId } , curr ];
         }
         return [...acc, curr];
       }, []);
