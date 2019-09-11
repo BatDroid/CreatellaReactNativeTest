@@ -1,18 +1,20 @@
 import { Dispatch } from "redux";
 import api from "../../../config/api";
-import { PRODUCTS } from "../../../config/routes";
+import { getProductsUrl } from "../../../config/routes";
 import { FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_ERROR, FETCH_PRODUCTS_SUCCESS } from "./types";
 
-export function getProducts() {
+export function getProducts(requestedPage: number) {
     return (dispatch: Dispatch) => {
         dispatch({
             type: FETCH_PRODUCTS_REQUEST,
+            currentPage: requestedPage,
         });
-        api.get(PRODUCTS).then((response) => {
+        api.get(getProductsUrl(requestedPage)).then((response) => {
             if(response.status === 200)
                 dispatch({
                     type: FETCH_PRODUCTS_SUCCESS,
                     products: response.data,
+                    currentPage: requestedPage,
                 })
             else 
                 dispatch({

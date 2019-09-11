@@ -16,16 +16,28 @@ interface State {};
 class Products extends React.Component<Props, State> {
 
   componentDidMount() {
-    this.props.getProducts();
+    this.props.getProducts(1);
+  }
+
+  onLoadMore = () => {
+    const { currentPage, isFetchingMore, allFetched } = this.props;
+    if (isFetchingMore || allFetched) return;
+    this.props.getProducts(currentPage + 1);
   }
 
   render() {
-    if (this.props.errorStatus) return <ServerError />
-    if (this.props.isFetching) return <ScreenLoading />
+    const {products, isFetching, isFetchingMore, allFetched, errorStatus} = this.props;
+    if (errorStatus) return <ServerError />
+    if (isFetching) return <ScreenLoading />
     return (
     <SafeAreaView style={styles.root}>
       <StatusBar barStyle="dark-content" />
-      <ProductsList list={this.props.products} />
+      <ProductsList
+        list={products}
+        onEndReached={this.onLoadMore}
+        loadMoreLoading={isFetchingMore}
+        allFetched={allFetched}
+      />
     </SafeAreaView>
     )
   }
@@ -45,13 +57,16 @@ function mapDispatchToProps(dispatch: Dispatch) {
 function mapStateToProps(
   {
     products :
-     {products, isFetching, errorStatus}}: { products: ProdcutsPayloadType
-  }
+     {products, isFetching, errorStatus, currentPage, isFetchingMore, allFetched}}:
+      { products: ProdcutsPayloadType}
   ) {
   return {
       products,
       errorStatus,
       isFetching,
+      currentPage,
+      isFetchingMore,
+      allFetched,
   };
 }
 

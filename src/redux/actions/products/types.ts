@@ -24,7 +24,10 @@ export const FETCH_PRODUCTS_ERROR = "FETCH_PRODUCTS_ERROR";
   export interface ProdcutsPayloadType {
     products: ProductType[];
     isFetching: boolean;
+    isFetchingMore: boolean;
     errorStatus?: ProductErrorType;
+    currentPage: number;
+    allFetched: boolean;
   }
 
   interface GetProductsAction extends ProdcutsPayloadType {
