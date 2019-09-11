@@ -1,5 +1,7 @@
 import { SortTypes } from "../redux/actions/products/types";
 
+
+// note: on android replace localhost with your ip address
 export const BASE_URL = "http://localhost:3000/api";
 
 const PRODUCTS = "/products";
