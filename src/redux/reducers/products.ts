@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { ProductType, ProductActions, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_ERROR, FETCH_PRODUCTS_SUCCESS } from "../actions/products/types";
+import { ProductType, ProductActions, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_ERROR, FETCH_PRODUCTS_SUCCESS, SortTypes } from "../actions/products/types";
 
 
 
@@ -14,7 +14,7 @@ function productsReducer(state = [], action: ProductActions) {
 
 
 function getProducts(state: ProductType[], action: ProductActions) {
-    return [...state, ...action.products];
+    return action.currentPage === 1? action.products : [...state, ...action.products];
 }
 
 function allFetchedReducer(state = false, action: ProductActions) {
@@ -68,6 +68,15 @@ function currentPageReducer(state: number = 1, action: ProductActions) {
     }
 }
 
+function sortReducer(state: SortTypes | null = null, action: ProductActions) {
+    switch (action.type) {
+        case FETCH_PRODUCTS_SUCCESS: 
+            return action.currentSort;
+        default:
+            return state;
+    }
+}
+
 
 
 // @ts-ignore
@@ -77,5 +86,6 @@ export default combineReducers({
     isFetching: isFetchingReducer,
     currentPage: currentPageReducer,
     isFetchingMore: isFetchingMoreReducer,
+    currentSort: sortReducer,
     allFetched: allFetchedReducer,
  });

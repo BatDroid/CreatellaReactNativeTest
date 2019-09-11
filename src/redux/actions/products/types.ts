@@ -21,11 +21,18 @@ export const FETCH_PRODUCTS_ERROR = "FETCH_PRODUCTS_ERROR";
     isFetching: boolean;
   }
 
+  export enum SortTypes {
+    Id = "id",
+    Price = "price",
+    Size = "size",
+  }
+
   export interface ProdcutsPayloadType {
     products: ProductType[];
     isFetching: boolean;
     isFetchingMore: boolean;
     errorStatus?: ProductErrorType;
+    currentSort: null | SortTypes;
     currentPage: number;
     allFetched: boolean;
   }
