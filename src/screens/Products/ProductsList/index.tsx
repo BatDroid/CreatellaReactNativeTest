@@ -1,17 +1,22 @@
 import React from "react";
 import { FlatList } from "react-native";
-import { ProductType } from "../../../redux/actions/products/types";
+import { ProductItemType } from "../../../redux/actions/products/types";
 import ListItem from "./ListItem";
 import ListFooter from "./ListFooter";
+import AdListItem from "./AdListItem";
+import { isAdItem } from "../../../utils/productUtils";
 
 interface Props {
-    list: ProductType[];
+    list: ProductItemType[];
     onEndReached: () => void;
     loadMoreLoading: boolean;
     allFetched: boolean;
 };
 
-const renderItem = ({ item }: {item: ProductType}) => <ListItem {...item} />
+const renderItem = ({ item }: {item: ProductItemType}) => {
+    if(isAdItem(item)) return <AdListItem adId={item.adId}/>;
+    return (<ListItem {...item} />);
+}
 
 export default (props: Props) => {
     const {list, onEndReached, loadMoreLoading, allFetched} = props;

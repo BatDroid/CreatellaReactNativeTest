@@ -5,11 +5,12 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { getProducts } from '../../redux/actions/products';
-import { ProdcutsPayloadType, SortTypes } from '../../redux/actions/products/types';
+import { SortTypes } from '../../redux/actions/products/types';
 import ScreenLoading from '../../components/ScreenLoading';
 import ServerError from '../../components/ServerError';
 import ProductsList from './ProductsList';
 import SortModal from './SortModal';
+import { ProductsState } from '../../redux/reducers/products';
 
 
 type NavigationParams = {
@@ -17,7 +18,7 @@ type NavigationParams = {
 }
 
 type NavigationType = NavigationScreenProp<Props, NavigationParams>;
-interface Props extends ProdcutsPayloadType {
+interface Props extends ProductsState {
   getProducts: Function;
   navigation: NavigationType;
 };
@@ -104,7 +105,7 @@ function mapStateToProps(
   {
     products :
      {products, isFetching, errorStatus, currentPage, isFetchingMore, allFetched, currentSort}}:
-      { products: ProdcutsPayloadType}
+      { products: ProductsState}
   ) {
   return {
       products,

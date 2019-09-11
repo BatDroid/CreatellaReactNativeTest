@@ -5,6 +5,11 @@ export const FETCH_PRODUCTS_ERROR = "FETCH_PRODUCTS_ERROR";
 
 
 
+  export interface AdItemType {
+    id: string;
+    adId: string;
+  }
+
   export interface ProductType {
     id: string;
     size: number;
@@ -12,6 +17,8 @@ export const FETCH_PRODUCTS_ERROR = "FETCH_PRODUCTS_ERROR";
     date: string;
     face: string;
   }
+
+  export type ProductItemType = AdItemType | ProductType;
 
   export interface ProductErrorType {
     errorStatus?: number;

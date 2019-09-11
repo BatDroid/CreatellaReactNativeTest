@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { ProductType } from "../../../redux/actions/products/types";
+import ListItemContainer from "./ListItemContainer";
 
 export default (props: ProductType) => {
     const {face, price, date, size} = props;
     return (
-        <View style={styles.root}>
+        <ListItemContainer>
             <View style={styles.fontContainer}>
                 <Text style={{fontSize: size}}>{face}</Text>
             </View>
@@ -14,7 +15,7 @@ export default (props: ProductType) => {
                 <Text>{`$${price}`}</Text>
                 <Text style={styles.date}>{getProperDate(date)}</Text>
             </View>
-        </View>
+        </ListItemContainer>
     );
 };
 
@@ -33,15 +34,6 @@ function getProperDate(d: string) {
 }
 
 const styles = StyleSheet.create({
-    root: {
-        flex: 1,
-        margin: 1,
-        borderWidth: 1,
-        borderColor: "#CCC",
-        height: Dimensions.get("window").width * 0.5,
-        alignItems: "center",
-        borderRadius: 5,
-    },
     fontContainer: {
         flex: 10,
         alignItems: "center",
