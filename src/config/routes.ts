@@ -12,5 +12,5 @@ export function getProductsUrl(page: number, sortBy?: SortTypes) {
 }
 
 export function getAdUrl(id: string) {
-    return `http://localhost:3000/api/${ADS}?r=${id}`
+    return `${BASE_URL}${ADS}?r=${id}`
 }
